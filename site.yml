@@ -1,7 +1,6 @@
 ---
 - name: Simple test playbook
   hosts: all
-  become: yes
   tasks:
     - name: Display a message
       debug:
