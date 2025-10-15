@@ -13,3 +13,18 @@
     - name: Show system info
       debug:
         var: uname_result.stdout
+
+    - name: Run neofetch to display system info
+      command: neofetch --stdout
+      register: neofetch_result
+      ignore_errors: yes  # In case neofetch is not installed
+
+    - name: Show neofetch output
+      debug:
+        var: neofetch_result.stdout
+      when: neofetch_result is succeeded
+
+    - name: Warning if neofetch not installed
+      debug:
+        msg: "neofetch is not installed on the system"
+      when: neofetch_result is failed
